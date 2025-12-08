@@ -1,4 +1,4 @@
-# TaskStacker
+## TaskStacker
 
 A clean task & todo management web app built as my first complete frontend project using modern web technologies.
 
@@ -67,7 +67,9 @@ Each challenge helped me understand how real applications behave under user inte
 
 Just clone it......
 
-## 🔮 I want to add But may be in Future..
+---
+
+# I want to add But may be in Future..
 
 - Task categories
 - Due dates and reminders
