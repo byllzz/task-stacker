@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TaskStacker — Tasks &amp; To-Do Manager</title>
+    <meta
+      name="description"
+      content="TaskStacker — a vertically stacked to-do manager for fast input, quick navigation, and clean visual clarity."
+    />
+    <meta name="author" content="Bilal Malik" />
+    <meta name="keywords" content="task manager, todo, productivity, TaskStacker, tasks" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Google font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Icon library -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <!-- Reset and app styles -->
+    <link rel="stylesheet" href="/reset.css" />
+    <!-- Favicon -->
+    <link
+      rel="shortcut icon"
+      href="/assets/favicon_io/android-chrome-512x512.png"
+      type="image/png"
+    />
+  </head>
+  <body>
+    <!-- Main app container -->
+    <main>
+      <!-- Outer phone/device layer -->
+      <div class="the-layer">
+        <!-- Chrome pieces (device hardware decorations) -->
+        <div class="power-btn"></div>
+        <div class="vol-up-btn"></div>
+        <div class="vol-down-btn"></div>
+        <div class="bixby-btn"></div>
+
+        <!-- Todo wrapper -->
+        <div id="todo-wrapper">
+          <!-- LOADER OVERLAY -->
+          <div id="loader-overlay" aria-hidden="true" class="loader-hidden">
+            <!-- Accessible loader graphic -->
+            <svg class="loader-svg" viewBox="0 0 50 50" role="img" aria-label="Loading">
+              <circle class="loader-ring" cx="25" cy="25" r="20" fill="none" stroke-width="4" />
+              <path
+                class="loader-head"
+                d="M25 5 A20 20 0 0 1 45 25"
+                fill="none"
+                stroke-width="4"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+
+          <!-- Bottom bar placeholder -->
+          <div class="bottom-bar"></div>
+
+          <!-- Camera decoration -->
+          <div class="camera-lens">
+            <div class="lens"><div class="small-lens"></div></div>
+          </div>
+
+          <!-- Top status header -->
+          <div class="home-header">
+            <div class="clock" aria-live="polite"></div>
+            <div class="mobile-funcs" aria-hidden="false">
+              <i class="fa-solid fa-signal" aria-hidden="true"></i>
+              <i class="fa-solid fa-wifi" aria-hidden="true"></i>
+              <!-- Note: class 'battrey' kept as-is to avoid breaking existing CSS/JS -->
+              <div class="battrey" role="img" aria-label="battery level">
+                <div class="battrey-color" aria-hidden="true"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- HOME -->
+          <section id="todo-home" aria-hidden="false">
+            <!-- Home headings -->
+            <div class="todo-home-headings">
+              <article class="todo-home-greeting">Have a good day Newbi !</article>
+              <img class="taskStacker-logo" src="/assets/taskStacker.png" alt="TaskStacker logo" />
+            </div>
+
+            <!-- Mood selector wrapper -->
+            <div class="mood-switcher-wrapper">
+              <div class="mood-buttons" role="tablist" aria-label="Mood selector">
+                <!-- Angry (red face with pulsing, angry brow wiggle) -->
+                <button data-index="0" aria-label="angry" class="mood-btn" role="tab">
+                  <svg
+                    class="icon angry"
+                    viewBox="0 0 64 64"
+                    width="36"
+                    height="36"
+                    aria-hidden="true"
+                  >
+                    <defs>
+                      <radialGradient id="g-angry" cx="35%" cy="30%" r="80%">
+                        <stop offset="0%" stop-color="#ff9a9e" />
+                        <stop offset="70%" stop-color="#ff6a6a" />
+                        <stop offset="100%" stop-color="#ff3b3b" />
+                      </radialGradient>
+                    </defs>
+                    <!-- face -->
+                    <circle cx="32" cy="32" r="28" fill="url(#g-angry)" />
+                    <!-- eyebrows -->
+                    <g id="brows" fill="#2a0e0e">
+                      <rect
+                        x="12"
+                        y="18"
+                        width="14"
+                        height="4"
+                        rx="2"
+                        transform="rotate(-18 19 20)"
+                      >
+                        <animateTransform
+                          attributeName="transform"
+                          type="rotate"
+                          values="-24 19 20;-12 19 20;-24 19 20"
+                          dur="1s"
+                          repeatCount="indefinite"
+                        />
+                      </rect>
+                      <rect x="38" y="18" width="14" height="4" rx="2" transform="rotate(18 45 20)">
+                        <animateTransform
+                          attributeName="transform"
+                          type="rotate"
+                          values="24 45 20;12 45 20;24 45 20"
+                          dur="1s"
+                          repeatCount="indefinite"
+                        />
+                      </rect>
+                    </g>
+                    <!-- eyes -->
+                    <g fill="#131313">
+                      <ellipse cx="22" cy="32" rx="6" ry="8" />
+                      <ellipse cx="42" cy="32" rx="6" ry="8" />
+                      <!-- pupils -->
+                      <circle cx="22" cy="32" r="3" fill="#fff">
+                        <animate
+                          attributeName="cx"
+                          values="22;21;22"
+                          dur="2s"
+                          repeatCount="indefinite"
+                        />
+                      </circle>
+                      <circle cx="42" cy="32" r="3" fill="#fff">
+                        <animate
+                          attributeName="cx"
+                          values="42;43;42"
+                          dur="2s"
+                          repeatCount="indefinite"
+                        />
+                      </circle>
+                    </g>
+                    <!-- mouth (teeth-ish rigid mouth) -->
+                    <g transform="translate(0,6)">
+                      <path
+                        d="M20 36c6 6 18 6 26 0"
+                        fill="none"
+                        stroke="#3a0505"
+                        stroke-width="4"
+                        stroke-linecap="round"
+                      />
+                      <rect x="24" y="30" width="4" height="6" fill="#fff" />
+                      <rect x="36" y="30" width="4" height="6" fill="#fff" />
+                    </g>
+                    <!-- pulse halo -->
+                    <circle
+                      cx="32"
+                      cy="32"
+                      r="28"
+                      fill="none"
+                      stroke="#ff3b3b"
+                      stroke-width="2"
+                      opacity="0.12"
+                    >
+                      <animate
+                        attributeName="opacity"
+                        values="0.12;0.28;0.12"
+                        dur="1.6s"
+                        repeatCount="indefinite"
+                      />
+                      <animate
+                        attributeName="r"
+                        values="28;30;28"
+                        dur="1.6s"
+                        repeatCount="indefinite"
+                      />
+                    </circle>
+                  </svg>
+                </button>
+
+                <!-- Bold / Fire (flame with flicker gradient) -->
+                <button data-index="1" aria-label="bold" class="mood-btn" role="tab">
+                  <svg
+                    class="icon fire"
+                    viewBox="0 0 64 64"
+                    width="36"
+                    height="36"
+                    aria-hidden="true"
+                  >
+                    <defs>
+                      <linearGradient id="g-flame" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#fff37a" />
+                        <stop offset="35%" stop-color="#ffb54d" />
+                        <stop offset="100%" stop-color="#ff5a3c" />
+                      </linearGradient>
+                    </defs>
+                    <circle cx="32" cy="32" r="28" fill="#2b0b00" opacity="0.05" />
+                    <!-- flame layers -->
+                    <path
+                      d="M32 12c-4 6-10 8-10 18 0 11 10 18 10 18s10-7 10-18c0-7-6-12-10-18z"
+                      fill="url(#g-flame)"
+                    >
+                      <animate
+                        attributeName="d"
+                        dur="1s"
+                        repeatCount="indefinite"
+                        values="M32 12c-4 6-10 8-10 18 0 11 10 18 10 18s10-7 10-18c0-7-6-12-10-18z;M32 10c-5 7-11 9-11 20 0 11 11 19 11 19s11-8 11-19c0-8-6-13-11-20z;M32 12c-4 6-10 8-10 18 0 11 10 18 10 18s10-7 10-18c0-7-6-12-10-18z"
+                      />
+                    </path>
+                    <!-- inner spark -->
+                    <path
+                      d="M32 18c-2 3-4 4-4 9 0 6 4 9 4 9s4-3 4-9c0-4-2-6-4-9z"
+                      fill="#fff8b0"
+                      opacity="0.95"
+                    >
+                      <animate
+                        attributeName="opacity"
+                        values="0.95;0.6;0.95"
+                        dur="0.9s"
+                        repeatCount="indefinite"
+                      />
+                      <animateTransform
+                        attributeName="transform"
+                        type="translate"
+                        values="0 0;0 -2;0 0"
+                        dur="0.9s"
+                        repeatCount="indefinite"
+                      />
+                    </path>
+                  </svg>
+                </button>
+
+                <!-- Sad (blue face with teardrop fall) -->
+                <button data-index="2" aria-label="sad" class="mood-btn" role="tab">
+                  <svg
+                    class="icon sad"
+                    viewBox="0 0 64 64"
+                    width="36"
+                    height="36"
+                    aria-hidden="true"
+                  >
+                    <defs>
+                      <linearGradient id="g-sad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#d0eaff" />
+                        <stop offset="100%" stop-color="#7fb7ff" />
+                      </linearGradient>
+                    </defs>
+                    <circle cx="32" cy="32" r="28" fill="url(#g-sad)" />
+                    <!-- eyes -->
+                    <g fill="#083a67">
+                      <ellipse cx="22" cy="30" rx="5" ry="6" />
+                      <ellipse cx="42" cy="30" rx="5" ry="6" />
+                    </g>
+                    <!-- mouth sad curve -->
+                    <path
+                      d="M22 44c4-4 12-4 16 0"
+                      fill="none"
+                      stroke="#06345a"
+                      stroke-width="3"
+                      stroke-linecap="round"
+                    />
+                    <!-- teardrop (left) animated -->
+                    <g transform="translate(18,34)">
+                      <path d="M6 0c-3 5-3 8 0 12 3-4 3-7 0-12z" fill="#4da7ff" opacity="0.95">
+                        <animateTransform
+                          attributeName="transform"
+                          type="translate"
+                          values="0 0;0 6;0 0"
+                          dur="1.6s"
+                          repeatCount="indefinite"
+                        />
+                        <animate
+                          attributeName="opacity"
+                          values="0.95;0.2;0.95"
+                          dur="1.6s"
+                          repeatCount="indefinite"
+                        />
+                      </path>
+                    </g>
+                    <!-- small shimmer around face -->
+                    <circle cx="46" cy="18" r="2.5" fill="#fff8" opacity="0.7">
+                      <animate
+                        attributeName="r"
+                        values="2.5;4;2.5"
+                        dur="2.2s"
+                        repeatCount="indefinite"
+                      />
+                    </circle>
+                  </svg>
+                </button>
+
+                <!-- Happy (yellow face with smile bounce + confetti dots) -->
+                <button
+                  data-index="3"
+                  aria-label="happy"
+                  class="mood-btn active"
+                  role="tab"
+                  aria-selected="true"
+                >
+                  <svg
+                    class="icon happy"
+                    viewBox="0 0 64 64"
+                    width="36"
+                    height="36"
+                    aria-hidden="true"
+                  >
+                    <defs>
+                      <radialGradient id="g-happy" cx="30%" cy="25%" r="80%">
+                        <stop offset="0%" stop-color="#fff89a" />
+                        <stop offset="100%" stop-color="#ffd34a" />
+                      </radialGradient>
+                    </defs>
+                    <circle cx="32" cy="32" r="28" fill="url(#g-happy)" />
+                    <!-- eyes -->
+                    <g fill="#3a2a00">
+                      <circle cx="22" cy="28" r="4" />
+                      <circle cx="42" cy="28" r="4" />
+                    </g>
+                    <!-- smiling mouth that bounces -->
+                    <path
+                      id="smile"
+                      d="M20 40c6 8 18 8 24 0"
+                      fill="none"
+                      stroke="#3a2a00"
+                      stroke-width="4"
+                      stroke-linecap="round"
+                    >
+                      <animateTransform
+                        attributeName="transform"
+                        type="translate"
+                        values="0 0;0 -3;0 0"
+                        dur="1.2s"
+                        repeatCount="indefinite"
+                      />
+                    </path>
+                    <!-- confetti dots -->
+                    <g>
+                      <circle cx="14" cy="18" r="2.2" fill="#ff5a5a">
+                        <animateTransform
+                          attributeName="transform"
+                          type="translate"
+                          values="0 0;4 -6;0 0"
+                          dur="1.5s"
+                          repeatCount="indefinite"
+                        />
+                      </circle>
+                      <circle cx="50" cy="18" r="2.2" fill="#6be27a">
+                        <animateTransform
+                          attributeName="transform"
+                          type="translate"
+                          values="0 0;-4 -5;0 0"
+                          dur="1.6s"
+                          repeatCount="indefinite"
+                        />
+                      </circle>
+                      <circle cx="32" cy="12" r="1.6" fill="#6fc2ff">
+                        <animate
+                          attributeName="opacity"
+                          values="1;0.3;1"
+                          dur="1.4s"
+                          repeatCount="indefinite"
+                        />
+                      </circle>
+                    </g>
+                  </svg>
+                </button>
+              </div>
+
+              <!-- tips to change modes -->
+              <div class="mood-changes-tips">
+                <article>Swipe to change mode</article>
+                <div class="tip-bar"></div>
+              </div>
+              <!-- Mood slider -->
+              <div class="the-moods-wrapper">
+                <div class="moods-track">
+                  <!-- ANGRY card -->
+                  <div class="mood-card mood-angry" data-mood="angry">
+                    <div class="the-mood-eyes">
+                      <div class="eyebrows">
+                        <div class="left-brow"></div>
+                        <div class="right-brow"></div>
+                      </div>
+                      <div class="the-eyes">
+                        <div class="left-eye"><div class="pupil"></div></div>
+                        <div class="right-eye"><div class="pupil"></div></div>
+                      </div>
+                      <div class="the-smile"><div class="smile smile-angry"></div></div>
+                    </div>
+                  </div>
+
+                  <!-- AGGRESSIVE card -->
+                  <div class="mood-card mood-aggressive" data-mood="aggressive">
+                    <div class="the-mood-eyes">
+                      <div class="eyebrows">
+                        <div class="left-brow"></div>
+                        <div class="right-brow"></div>
+                      </div>
+                      <div class="the-eyes">
+                        <div class="left-eye"><div class="pupil"></div></div>
+                        <div class="right-eye"><div class="pupil"></div></div>
+                      </div>
+                      <div class="the-smile">
+                        <div class="smile smile-aggressive">
+                          <div class="up-teeth"></div>
+                          <div class="down-teeth"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- SAD card -->
+                  <div class="mood-card mood-sad" data-mood="sad">
+                    <div class="the-mood-eyes">
+                      <div class="eyebrows">
+                        <div class="left-brow"></div>
+                        <div class="right-brow"></div>
+                      </div>
+                      <div class="the-eyes">
+                        <div class="left-eye"><div class="pupil"></div></div>
+                        <div class="right-eye"><div class="pupil"></div></div>
+                      </div>
+                      <div class="the-smile"><div class="smile smile-sad"></div></div>
+                    </div>
+                  </div>
+
+                  <!-- HAPPY card -->
+                  <div class="mood-card mood-happy" data-mood="happy">
+                    <div class="the-mood-eyes">
+                      <div class="eyebrows">
+                        <div class="left-brow"></div>
+                        <div class="right-brow"></div>
+                      </div>
+                      <div class="the-eyes">
+                        <div class="left-eye"><div class="pupil"></div></div>
+                        <div class="right-eye"><div class="pupil"></div></div>
+                      </div>
+                      <div class="the-smile">
+                        <div class="smile smile-happy">
+                          <div class="up-teeth"></div>
+                          <div class="down-teeth"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Start/create area -->
+              <div class="todo-start">
+                <button class="create-btn" id="startBtn">Start creating</button>
+                <article class="logic-article">
+                  Say hello to me <a href="#" id="about-link">About me</a>
+                </article>
+              </div>
+            </div>
+          </section>
+
+          <!-- TODO APP -->
+          <section id="todo-app" aria-hidden="true">
+            <!-- Repeated camera decoration for app screen -->
+            <div class="camera-lens">
+              <div class="lens"><div class="small-lens"></div></div>
+            </div>
+            <!-- Header (kept inline style as originally provided) -->
+            <div class="home-header" style="top: 22px">
+              <div class="clock" aria-live="polite"></div>
+              <div class="mobile-funcs">
+                <i class="fa-solid fa-signal" aria-hidden="true"></i>
+                <i class="fa-solid fa-wifi" aria-hidden="true"></i>
+                <div class="battrey" role="img" aria-label="battery level">
+                  <div class="battrey-color" aria-hidden="true"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bottom dock -->
+            <div class="the-dock">
+              <button class="back-btn" id="backBtn" aria-label="Back to home">
+                <i class="fa-solid fa-home" aria-hidden="true"></i>
+              </button>
+
+              <button class="back-btn add-btn" id="openAddBtn" aria-label="Add task">
+                <i class="fa-solid fa-plus" aria-hidden="true"></i>
+              </button>
+
+              <button class="back-btn" aria-label="Profile">
+                <i class="fa-solid fa-user" aria-hidden="true"></i>
+              </button>
+            </div>
+
+            <!-- todo-app-home -->
+            <div class="todos-title-wrapper">
+              <div class="todos-header">
+                <img
+                  src="/assets/taskStacker-plain.png"
+                  alt="TaskStacker plain logo"
+                  class="taskStacker-plain"
+                />
+              </div>
+              <article class="taskStacker-desc">
+                A vertically stacked to-do manager designed for fast input, quick navigation, and
+                clean visual clarity.
+              </article>
+              <div class="user-mood" aria-hidden="true"></div>
+            </div>
+
+            <!-- Todo content area -->
+            <div id="todoContent" class="todo-content">
+              <div id="emptyState" class="empty-state">
+                <p>No tasks yet</p>
+                <button id="emptyAddBtn">Add a task</button>
+              </div>
+            </div>
+          </section>
+
+          <!-- ADD TODO (new section inside todo-wrapper, sibling to todo-app) -->
+          <section id="add-todo" aria-hidden="true">
+            <div class="add-header">
+              <button class="back-arrow" id="closeAddBtn" aria-label="Close add task">
+                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+              </button>
+              <div class="create-title">Create <br />New Task</div>
+            </div>
+
+            <!-- Task creation form -->
+            <div class="form-sheet">
+              <div class="input-row">
+                <label for="taskName">Task Name</label>
+                <input type="text" id="taskName" placeholder="Task Name / Todo Name" />
+              </div>
+
+              <div class="row" style="margin-bottom: 12px">
+                <div style="flex: 1">
+                  <div class="input-row">
+                    <label for="taskDate">Date</label>
+                    <input type="date" id="taskDate" />
+                  </div>
+                </div>
+              </div>
+
+              <div style="flex: 1">
+                <div class="input-row">
+                  <label>Time</label>
+                  <div style="display: flex; gap: 8px">
+                    <div>
+                      <label for="">Start Time</label>
+                      <input type="time" id="startTime" aria-label="Start time" />
+                    </div>
+                    <div>
+                      <label for="">End Time</label>
+                      <input type="time" id="endTime" aria-label="End time" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="input-row">
+                <label>Category</label>
+                <div class="row" id="categoryRow" role="list">
+                  <div class="chip active" data-cat="Work" role="button" tabindex="0">Work</div>
+                  <div class="chip" data-cat="Personal" role="button" tabindex="0">Personal</div>
+                  <div class="chip" data-cat="Health" role="button" tabindex="0">Health</div>
+                </div>
+              </div>
+
+              <div class="input-row toggle">
+                <div>
+                  <label>Remind me</label>
+                  <div class="muted">Turn on reminder</div>
+                </div>
+                <div>
+                  <div
+                    id="remindSwitch"
+                    class="switch"
+                    role="switch"
+                    aria-checked="false"
+                    tabindex="0"
+                  >
+                    <div class="dot" aria-hidden="true"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="margin-top: 8px">
+                <button id="createTaskBtn" class="create-task-btn">CREATE TASK</button>
+              </div>
+            </div>
+          </section>
+
+          <!-- ABOUT / DEVELOPER INFO SECTION -->
+          <section id="about-section" aria-hidden="true">
+            <div class="about-card">
+              <div class="about-header">
+                <button class="back-arrow" id="closeAboutBtn" aria-label="Close about">
+                  <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                </button>
+                <div class="about-title">About Me</div>
+              </div>
+              <div class="about-avatar">
+                <img src="/assets/Bilal's Avatar.png" alt="Bilal avatar" />
+              </div>
+              <div class="about-content">
+                <h3>Hello! I'm Bilal</h3>
+                <p>
+                  I'm the developer of <strong>TaskStacker</strong>. I build web apps, web pages
+                  &amp; websites that are clean, fast, and intuitive, combining functionality with
+                  playful moods.
+                </p>
+                <p><strong>Technologies I use:</strong><br />HTML, CSS, JavaScript</p>
+                <p>Responsive design &amp; interactive UI experiences are my passion.</p>
+                <div class="about-links">
+                  <h3>Say hello to me:</h3>
+                  <div class="links">
+                    <a
+                      href="https://www.gitHub.com/byllzz"
+                      target="_blank"
+                      aria-label="GitHub profile"
+                      ><i class="fa-brands fa-github" aria-hidden="true"></i> GitHub</a
+                    >
+                    <a
+                      href="https://www.LinkedIn.com/"
+                      target="_blank"
+                      aria-label="LinkedIn profile"
+                      ><i class="fa-brands fa-linkedin" aria-hidden="true"></i> LinkedIn</a
+                    >
+                    <a
+                      href="https://bilalmalik-portfolio.netlify.app"
+                      target="_blank"
+                      aria-label="Portfolio"
+                      ><i class="fa-solid fa-p" aria-hidden="true"></i> Portfolio</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+    <!-- Instruction Menu to use this app -->
+    <section class="instructions-menu">
+      <article>How to use:</article>
+      <ul class="instructions">
+        <li>
+          Change your mood by tapping on the screen or using the left and right arrow keys on your
+          keyboard.
+        </li>
+        <li>Press the<strong>Start</strong>button to begin using <strong>TaskStacker.</strong></li>
+        <li>
+          Click the <strong>Add Task</strong> button or the <strong>+</strong> button at the bottom
+          to create a new task.
+        </li>
+        <li>Type your task and confirm to save it to your list.</li>
+        <li>Mark tasks as complete once you finish them.</li>
+        <li>Use this app daily to stay organized and focused.</li>
+        <li>&copy; 2025 copyright - All rights reserved to dev.</li>
+      </ul>
+    </section>
+    <!-- instruction Toggle button -->
+    <button id="instructionsToggle" class="instructions-toggle">How to use</button>
+    <!-- App logic -->
+    <script src="/logic.js" defer></script>
+  </body>
+</html>
