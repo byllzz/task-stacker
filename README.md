@@ -4,10 +4,10 @@ A clean task & todo management web app built as my first complete frontend proje
 
 TaskStacker helps users organize daily tasks with a simple, distraction-free interface focused on speed and clarity.
 
+[Its live,check it..](https://the-task-stacker.netlify.app)
+
 ---
-
 ## Features
-
 - Add new tasks
 - Edit existing tasks
 - Delete tasks
@@ -66,3 +66,18 @@ Each challenge helped me understand how real applications behave under user inte
 # Project Structure
 
 Just clone it......
+
+## 🔮 I want to add But may be in Future..
+
+- Task categories
+- Due dates and reminders
+- Dark mode
+- Local storage or database support
+- User authentication
+
+---
+
+# Author
+
+Built by **byllzz**  
+Frontend Developer | Learning by building
