@@ -81,5 +81,5 @@ Just clone it......
 
 # Author
 
-Built by **byllzz**  
+Built by **Bilal Malik(byllzz)**  
 Frontend Developer | Learning by building
