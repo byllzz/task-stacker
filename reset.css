@@ -32,6 +32,7 @@ body {
   position: relative;
   color: inherit;
   background: bisque;
+  overflow : hidden;
 }
 
 /* heading reset */
@@ -185,7 +186,7 @@ select {
   .instructions-toggle {
     display: block;
     right: 15px;
-    bottom: 30px;
+    bottom: 55px;
   }
 }
 
@@ -350,6 +351,7 @@ select {
 }
 .clock {
   font-size: 13px;
+  color :#000000;
 }
 .mobile-funcs {
   display: flex;
@@ -358,6 +360,7 @@ select {
 }
 .mobile-funcs i {
   font-size: 10px;
+   color :#000000;
 }
 
 /* battery graphic (name kept to avoid JS/CSS breakage) */
@@ -474,6 +477,7 @@ select {
 /* user mood label */
 .user-mood {
   font-size: 15px;
+  color : #000000;
   z-index: 40;
   position: absolute;
   top: 30%;
@@ -898,6 +902,7 @@ select {
   position: relative;
   top: 1px;
   font-size: 20px;
+  color : #000000;
 }
 .add-btn {
   height: 60px;
@@ -953,6 +958,7 @@ select {
   font-size: 16px;
   position: relative;
   bottom: 120px;
+  color : #000000;
 }
 
 /* todo content scrolling area */
@@ -1340,7 +1346,7 @@ select {
 @media screen and (max-width: 768px) {
   .the-layer {
     width: 340px;
-    height: 70vh;
+    height: 80vh;
   }
   .taskStacker-logo {
     height: 250px;
