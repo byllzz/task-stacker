@@ -1340,6 +1340,7 @@ select {
 @media screen and (max-width: 768px) {
   .the-layer {
     width: 340px;
+    height: 70vh;
   }
   .taskStacker-logo {
     height: 250px;
