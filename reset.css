@@ -910,11 +910,13 @@ select {
   border: 4px solid var(--layer-border-color) !important;
   border-radius: 50%;
   background-color: #000000;
-  color: #fff;
   position: relative;
   bottom: 10px;
   transition: transform 0.3s ease;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+.add-btn i {
+    color: #fff !Important;
 }
 .add-btn:active {
   transform: scale(0.9);
